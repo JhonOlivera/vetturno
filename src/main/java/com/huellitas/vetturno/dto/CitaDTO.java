@@ -1,4 +1,6 @@
 package com.huellitas.vetturno.dto;
 
-public record CitaDTO() {
-}
+import java.time.LocalDateTime;
+
+public record CitaDTO(Long id, LocalDateTime fechaHora, String motivo,
+                      String mascota, String propietario, String veterinario) {}

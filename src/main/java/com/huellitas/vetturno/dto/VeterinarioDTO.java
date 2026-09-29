@@ -1,4 +1,3 @@
 package com.huellitas.vetturno.dto;
 
-public record VeterinarioDTO() {
-}
+public record VeterinarioDTO(Long id, String nombre, String especialidad) {}

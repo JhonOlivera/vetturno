@@ -9,6 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     // TEMPORAL: se reemplaza en la Parte 5 por JWT y roles
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
