@@ -2,7 +2,7 @@
 
 API REST para la agenda de citas de **Veterinaria Huellitas**. Taller evaluativo del Módulo 3 (Java AI Engineer): backend profesional con Spring Boot.
 
-**Autor:** [COMPLETA: tu nombre] · **Repositorio:** https://github.com/JhonOlivera/vetturno
+**Autor:** Jhon Edwin Olivera Duarte · **Repositorio:** https://github.com/JhonOlivera/vetturno
 
 ## 1. La historia
 
