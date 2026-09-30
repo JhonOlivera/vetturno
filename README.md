@@ -194,7 +194,7 @@ Las reglas de formato (campos obligatorios, email válido, fecha futura) viven e
 
 ## 11. Matriz de pruebas manuales
 
-Las pruebas se ejecutaron de forma manual desde Swagger UI y Postman. Todas las capturas están reunidas en un único documento: [Evidencias_de_Pruebas_Vetturno.pdf](docs/Evidencias_de_Pruebas_Vetturno.pdf). La última columna indica la página del PDF donde se ve cada prueba.
+Las pruebas se ejecutaron de forma manual desde Swagger UI y Postman. Todas las capturas están reunidas en un único documento: [Evidencias_de_Pruebas_Vetturno.pdf](Evidencias_de_Pruebas_Vetturno.pdf). La última columna indica la página del PDF donde se ve cada prueba.
 
 > **Nota sobre las pruebas 8, 9 y 11:** sus capturas son de Postman y se tomaron en los hitos de las partes 3 y 4, antes de activar JWT. [BORRA ESTA NOTA si las repites en Swagger con token.]
 
