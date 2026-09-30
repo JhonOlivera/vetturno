@@ -2,7 +2,7 @@
 
 API REST para la agenda de citas de **Veterinaria Huellitas**. Taller evaluativo del Módulo 3 (Java AI Engineer): backend profesional con Spring Boot.
 
-**Autor:** Jhon Edwin Olivera Duarte · **Repositorio:** https://github.com/JhonOlivera/vetturno
+**Autor:** [COMPLETA: tu nombre] · **Repositorio:** https://github.com/JhonOlivera/vetturno
 
 ## 1. La historia
 
@@ -194,119 +194,56 @@ Las reglas de formato (campos obligatorios, email válido, fecha futura) viven e
 
 ## 11. Matriz de pruebas manuales
 
-Las pruebas se ejecutaron de forma manual desde Swagger UI y Postman. Las capturas están en `docs/evidencias/`.
+Las pruebas se ejecutaron de forma manual desde Swagger UI y Postman. Todas las capturas están reunidas en un único documento: [Evidencias_de_Pruebas_Vetturno.pdf](docs/Evidencias_de_Pruebas_Vetturno.pdf). La última columna indica la página del PDF donde se ve cada prueba.
 
 > **Nota sobre las pruebas 8, 9 y 11:** sus capturas son de Postman y se tomaron en los hitos de las partes 3 y 4, antes de activar JWT. [BORRA ESTA NOTA si las repites en Swagger con token.]
 
-| # | Escenario | Resultado esperado | Resultado real | HTTP | Evidencia |
-|---|-----------|--------------------|----------------|------|-----------|
-| 1 | La aplicación inicia con MySQL disponible | Servidor activo y esquema accesible | [PENDIENTE: escribe lo que viste en la consola: Java 17, Spring Boot 3.5.16 y `Started VetturnoApplication`] | — | [captura](docs/evidencias/01-inicio.jpeg) |
-| 2 | Registro válido de Paula | 200 y token; contraseña hasheada | [PENDIENTE: respuesta 200 con token y el hash BCrypt visible en la tabla `usuarios`] | 200 | [respuesta](docs/evidencias/02-registro.jpeg) · [hash en MySQL](docs/evidencias/02b-hash-usuarios.jpeg) |
-| 3 | Registro con email inválido y clave corta | 400 con errores por campo | Respondió 400 con el mensaje "Datos inválidos" y dos errores por campo: `email` ("El email no es válido") y `password` ("La contraseña debe tener al menos 6 caracteres"). | 400 | [captura](docs/evidencias/registro-datos-invalidos-400.jpeg) |
-| 4 | Login con credenciales válidas | 200 y JWT vigente | [PENDIENTE: respuesta 200 con el token parcialmente oculto] | 200 | [captura](docs/evidencias/04-login.jpeg) |
-| 5 | GET /api/citas sin token | Acceso rechazado | Sin cabecera `Authorization`, respondió 401 con el JSON `ApiError` y el mensaje "Debes iniciar sesión con un token válido". | 401 | [captura](docs/evidencias/citas-sin-token-401.jpeg) |
-| 6 | POST /api/veterinarios con USER | 403 Forbidden | Con el token de Paula (`USER`), respondió 403 con el mensaje "No tienes permiso para realizar esta acción". No se creó el veterinario. | 403 | [captura](docs/evidencias/crear-veterinario-403.jpeg) |
-| 7 | POST /api/veterinarios con ADMIN | 201 y veterinario persistido | Con el token de Marta (`ADMIN`), respondió 201 y devolvió el veterinario creado (id 3, "Dr. carlos", Cirugía). | 201 | [captura](docs/evidencias/crear-veterinario-201.jpeg) |
-| 8 | Creación válida de propietario | 201 y DTO sin colecciones anidadas | Respondió 201 con un JSON plano: id, nombre, teléfono y email de Yaritxa Duarte, sin colecciones anidadas. | 201 | [captura](docs/evidencias/post-propietarios-201.jpeg) |
-| 9 | Creación de mascota con propietario existente | 201 y relación correcta | Respondió 201 con `propietarioId` 1 y `propietarioNombre` "Yaritxa Duarte"; la relación quedó registrada. | 201 | [captura](docs/evidencias/post-mascotas-201.jpeg) · [tabla en MySQL](docs/evidencias/db-mascotas.jpeg) |
-| 10 | Mascota con propietario inexistente | 400 controlado; no se inserta fila | Con `propietarioId` 999 respondió 400 con el mensaje "El propietario con id 999 no existe". El listado de mascotas siguió mostrando solo a pipo. | 400 | [captura](docs/evidencias/mascota-propietario-inexistente-400.jpeg) · [listado posterior](docs/evidencias/mascotas-usuario-normal-200.jpeg) |
-| 11 | Cita futura con referencias válidas | 201 y cita persistida | Respondió 201 con la cita id 1 del 2026-12-15 a las 10:00, mascota "pipo", propietario "Yaritxa Duarte" y veterinario "Dr. Andrés". | 201 | [captura](docs/evidencias/post-citas-201.jpeg) |
-| 12 | Cita con fecha pasada | 400 con mensaje claro | Con una fecha de 2022 respondió 400 con "Datos inválidos" y el error de campo `fechaHora`: "La fecha debe ser futura". | 400 | [captura](docs/evidencias/cita-fecha-pasada-400.jpeg) |
-| 13 | Segundo intento con mismo veterinario y horario | 400; se conserva una sola cita | Repetir la cita respondió 400 con "El veterinario ya tiene una cita en ese horario". `GET /api/citas` mostró después una sola cita. | 400 | [rechazo](docs/evidencias/cita-conflicto-horario-400.jpeg) · [agenda con una cita](docs/evidencias/citas-con-token-200.jpeg) |
-| 14 | Filtro de citas por veterinario | 200 y solo coincidencias | `GET /api/citas/veterinario/1` respondió 200 con la única cita del Dr. Andrés. | 200 | [Swagger](docs/evidencias/citas-por-veterinario-200.jpeg) · [Postman](docs/evidencias/get-citas-veterinario-200.jpeg) |
-| 15 | Reinicio y prueba desde Swagger con Authorize | Datos persisten y flujo protegido funciona | Tras reiniciar, `GET /api/citas` sin token respondió 401. Con un token nuevo de Paula respondió 200 con las mismas citas, propietarios y mascotas. | 200 | [sin token](docs/evidencias/citas-sin-token-401-b.jpeg) · [citas](docs/evidencias/citas-usuario-normal-200.jpeg) · [propietarios](docs/evidencias/propietarios-usuario-normal-200.jpeg) · [mascotas](docs/evidencias/mascotas-usuario-normal-200.jpeg) |
+| # | Escenario | Resultado esperado | Resultado real | HTTP | Evidencia (PDF) |
+|---|-----------|--------------------|----------------|------|-----------------|
+| 1 | La aplicación inicia con MySQL disponible | Servidor activo y esquema accesible | La aplicación arrancó con Spring Boot 3.5.16 y Java 17.0.12, se conectó a MySQL 8.0.45, detectó los 5 repositorios JPA y quedó disponible en el puerto 8080 (`Started VetturnoApplication`). | — | Pág. 14 |
+| 2 | Registro válido de un usuario nuevo | 200 y token; contraseña hasheada | `POST /api/auth/register` respondió 200 con un token. En la tabla `usuarios` la contraseña aparece como hash BCrypt (`$2a$10$...`) y el rol es `USER`. | 200 | Pág. 13 |
+| 3 | Registro con email inválido y clave corta | 400 con errores por campo | Respondió 400 con "Datos inválidos" y dos errores por campo: `email` ("El email no es válido") y `password` ("La contraseña debe tener al menos 6 caracteres"). | 400 | Pág. 12 |
+| 4 | Login con credenciales válidas | 200 y JWT vigente | `POST /api/auth/login` con las credenciales de Paula respondió 200 y devolvió un JWT. | 200 | Pág. 12 |
+| 5 | GET /api/citas sin token | Acceso rechazado | Sin cabecera `Authorization`, respondió 401 con el JSON `ApiError` y el mensaje "Debes iniciar sesión con un token válido". | 401 | Pág. 3 |
+| 6 | POST /api/veterinarios con USER | 403 Forbidden | Con el token de Paula (`USER`), respondió 403 con el mensaje "No tienes permiso para realizar esta acción". No se creó el veterinario. | 403 | Pág. 5 |
+| 7 | POST /api/veterinarios con ADMIN | 201 y veterinario persistido | Con el token de Marta (`ADMIN`), respondió 201 y devolvió el veterinario creado (id 3, "Dr. carlos", Cirugía). | 201 | Pág. 4 |
+| 8 | Creación válida de propietario | 201 y DTO sin colecciones anidadas | Respondió 201 con un JSON plano: id, nombre, teléfono y email de Yaritxa Duarte, sin colecciones anidadas. | 201 | Pág. 10 |
+| 9 | Creación de mascota con propietario existente | 201 y relación correcta | Respondió 201 con `propietarioId` 1 y `propietarioNombre` "Yaritxa Duarte". En la tabla `mascotas`, `propietario_id` vale 1. | 201 | Págs. 10 y 5 |
+| 10 | Mascota con propietario inexistente | 400 controlado; no se inserta fila | Con `propietarioId` 999 respondió 400 con el mensaje "El propietario con id 999 no existe". El listado de mascotas siguió mostrando solo a pipo. | 400 | Págs. 8 y 9 |
+| 11 | Cita futura con referencias válidas | 201 y cita persistida | Respondió 201 con la cita id 1 del 2026-12-15 a las 10:00, mascota "pipo", propietario "Yaritxa Duarte" y veterinario "Dr. Andrés". | 201 | Pág. 9 |
+| 12 | Cita con fecha pasada | 400 con mensaje claro | Con una fecha de 2022 respondió 400 con "Datos inválidos" y el error de campo `fechaHora`: "La fecha debe ser futura". | 400 | Pág. 1 |
+| 13 | Segundo intento con mismo veterinario y horario | 400; se conserva una sola cita | Repetir la cita respondió 400 con "El veterinario ya tiene una cita en ese horario". `GET /api/citas` mostró después una sola cita. | 400 | Págs. 1 y 2 |
+| 14 | Filtro de citas por veterinario | 200 y solo coincidencias | `GET /api/citas/veterinario/1` respondió 200 con la única cita del Dr. Andrés. | 200 | Págs. 2 y 8 |
+| 15 | Reinicio y prueba desde Swagger con Authorize | Datos persisten y flujo protegido funciona | Tras reiniciar, `GET /api/citas` sin token respondió 401. Con un token nuevo de Paula respondió 200 con las mismas citas, propietarios y mascotas. | 200 | Págs. 3, 4, 9 y 11 |
 
-### Descripción de las capturas
+### Descripción de las capturas del PDF
 
-Cada captura se acompaña de una descripción para que la evidencia no dependa solo de la imagen:
+Cada página del PDF se describe aquí para que la evidencia no dependa solo de la imagen:
 
-- `01-inicio.jpeg`: [PENDIENTE: consola de IntelliJ con Spring Boot 3.5.16, Java 17 y el mensaje `Started VetturnoApplication`].
-- `02-registro.jpeg`: [PENDIENTE: Swagger mostrando el código 200 y el token al registrar un usuario].
-- `02b-hash-usuarios.jpeg`: [PENDIENTE: MySQL Workbench mostrando la tabla `usuarios`, con la contraseña como hash BCrypt y el rol `USER`].
-- `registro-datos-invalidos-400.jpeg`: Swagger mostrando el código 400 al registrar un email mal formado y una contraseña de tres caracteres; el cuerpo lista un error para `email` y otro para `password`.
-- `04-login.jpeg`: [PENDIENTE: Swagger mostrando el código 200 y el token de la sesión iniciada con Paula, con el token parcialmente oculto].
-- `citas-sin-token-401.jpeg`: Swagger mostrando el código 401 al consultar la agenda sin token; el cuerpo usa el formato `ApiError`.
-- `crear-veterinario-403.jpeg`: Swagger mostrando el código 403 al intentar crear un veterinario con el usuario Paula (rol `USER`).
-- `crear-veterinario-201.jpeg`: Swagger mostrando el código 201 al crear un veterinario con el usuario Marta (rol `ADMIN`).
-- `post-propietarios-201.jpeg`: Postman mostrando el código 201 y el propietario creado en formato plano.
-- `post-mascotas-201.jpeg`: Postman mostrando el código 201 y la mascota con el id y el nombre de su propietario.
-- `mascota-propietario-inexistente-400.jpeg`: Swagger mostrando el código 400 al crear una mascota con un propietario inexistente.
-- `post-citas-201.jpeg`: Postman mostrando el código 201 y la cita creada con los nombres de mascota, propietario y veterinario.
-- `cita-fecha-pasada-400.jpeg`: Swagger mostrando el código 400 al agendar una cita con fecha pasada; el error indica que la fecha debe ser futura.
-- `cita-conflicto-horario-400.jpeg`: Swagger mostrando el código 400 al agendar una segunda cita con el mismo veterinario y la misma hora.
-- `citas-con-token-200.jpeg`: Swagger mostrando el código 200 y una sola cita en la agenda después del intento duplicado.
-- `citas-por-veterinario-200.jpeg`: Swagger mostrando el código 200 y la cita del veterinario con id 1.
-- `citas-sin-token-401-b.jpeg`, `citas-usuario-normal-200.jpeg`, `propietarios-usuario-normal-200.jpeg` y `mascotas-usuario-normal-200.jpeg`: Swagger después de reiniciar la aplicación; primero el rechazo 401 sin token y luego las consultas de citas, propietarios y mascotas con código 200 y los datos guardados antes del reinicio.
-
-### Galería de capturas
-
-Las imágenes se muestran directamente en el README. Las rutas son relativas a la raíz del repositorio (`docs/evidencias/`).
-
-**Prueba 3 · Registro con datos inválidos (400)**
-
-![Swagger mostrando el código 400 al registrar un email mal formado y una contraseña corta; el cuerpo lista un error para email y otro para password](docs/evidencias/registro-datos-invalidos-400.jpeg)
-
-**Prueba 5 · Consulta sin token (401)**
-
-![Swagger mostrando el código 401 al consultar la agenda sin token, con el mensaje Debes iniciar sesión con un token válido](docs/evidencias/citas-sin-token-401.jpeg)
-
-**Prueba 6 · Crear veterinario con USER (403)**
-
-![Swagger mostrando el código 403 al intentar crear un veterinario con el usuario Paula, rol USER](docs/evidencias/crear-veterinario-403.jpeg)
-
-**Prueba 7 · Crear veterinario con ADMIN (201)**
-
-![Swagger mostrando el código 201 al crear un veterinario con el usuario Marta, rol ADMIN](docs/evidencias/crear-veterinario-201.jpeg)
-
-**Prueba 8 · Crear propietario (201)**
-
-![Postman mostrando el código 201 y el propietario Yaritxa Duarte en formato plano](docs/evidencias/post-propietarios-201.jpeg)
-
-**Prueba 9 · Crear mascota con propietario existente (201)**
-
-![Postman mostrando el código 201 y la mascota pipo con el id y el nombre de su propietario](docs/evidencias/post-mascotas-201.jpeg)
-
-**Prueba 10 · Mascota con propietario inexistente (400)**
-
-![Swagger mostrando el código 400 con el mensaje El propietario con id 999 no existe](docs/evidencias/mascota-propietario-inexistente-400.jpeg)
-
-**Prueba 11 · Agendar cita válida (201)**
-
-![Postman mostrando el código 201 y la cita creada con los nombres de mascota, propietario y veterinario](docs/evidencias/post-citas-201.jpeg)
-
-**Prueba 12 · Cita con fecha pasada (400)**
-
-![Swagger mostrando el código 400 con el error de campo fechaHora: La fecha debe ser futura](docs/evidencias/cita-fecha-pasada-400.jpeg)
-
-**Prueba 13 · Cita duplicada (400) y agenda con una sola cita**
-
-![Swagger mostrando el código 400 con el mensaje El veterinario ya tiene una cita en ese horario](docs/evidencias/cita-conflicto-horario-400.jpeg)
-
-![Swagger mostrando el código 200 y una sola cita en la agenda después del intento duplicado](docs/evidencias/citas-con-token-200.jpeg)
-
-**Prueba 14 · Filtro de citas por veterinario (200)**
-
-![Swagger mostrando el código 200 y la cita del veterinario con id 1](docs/evidencias/citas-por-veterinario-200.jpeg)
-
-**Prueba 15 · Persistencia después de reiniciar**
-
-![Swagger mostrando el código 401 al consultar la agenda sin token después de reiniciar la aplicación](docs/evidencias/citas-sin-token-401-b.jpeg)
-
-![Swagger mostrando el código 200 y la cita guardada antes del reinicio](docs/evidencias/citas-usuario-normal-200.jpeg)
-
-![Swagger mostrando el código 200 y el propietario guardado antes del reinicio](docs/evidencias/propietarios-usuario-normal-200.jpeg)
-
-![Swagger mostrando el código 200 y la mascota guardada antes del reinicio](docs/evidencias/mascotas-usuario-normal-200.jpeg)
+- **Página 1:** Swagger con `POST /api/citas`. La primera captura muestra el código 400 al repetir una cita con el mismo veterinario y hora ("El veterinario ya tiene una cita en ese horario"); la segunda, el código 400 con el error de campo "La fecha debe ser futura".
+- **Página 2:** Swagger con el código 200 en `GET /api/citas` (una sola cita) y en `GET /api/citas/veterinario/1`.
+- **Página 3:** Swagger con el código 401 en `GET /api/citas` sin token, antes y después de reiniciar la aplicación.
+- **Página 4:** Swagger con el código 200 en `GET /api/citas` con token, y el código 201 al crear un veterinario con el usuario Marta (`ADMIN`).
+- **Página 5:** Swagger con el código 403 al crear un veterinario con el usuario Paula (`USER`), y las tablas `mascotas` y `propietarios` en MySQL Workbench.
+- **Página 6:** Tabla `veterinarios` en MySQL Workbench y `GET /api/citas` en Postman con código 200.
+- **Página 7:** `GET /api/mascotas`, `GET /api/propietarios` y `GET /api/veterinarios` en Postman con código 200.
+- **Página 8:** `GET /api/citas/veterinario/1` en Postman con código 200, y Swagger con el código 400 al crear una mascota con un propietario inexistente.
+- **Página 9:** Swagger con `GET /api/mascotas` (200) y Postman con el código 201 al crear una cita.
+- **Página 10:** Postman con el código 201 al crear una mascota y un propietario.
+- **Página 11:** Postman con el código 201 al crear el veterinario Dr. Andrés, y Swagger con `GET /api/propietarios` (200).
+- **Página 12:** Swagger con el código 400 en un registro con email inválido y clave corta, y el código 200 en el login de Paula.
+- **Página 13:** MySQL Workbench con la tabla `usuarios` (contraseñas como hash BCrypt, roles `USER` y `ADMIN`) y Swagger con el código 200 en un registro válido.
+- **Página 14:** Consola de IntelliJ con el arranque de VetTurno: banner de Spring Boot 3.5.16, `Starting VetturnoApplication using Java 17.0.12`, conexión a MySQL 8.0.45 y el mensaje final `Started VetturnoApplication`.
 
 ## 12. Evidencias adicionales de las partes 2 a 4
 
+Estas capturas del PDF muestran la persistencia y el modelo relacional:
+
 | Evidencia | Qué demuestra |
 |---|---|
-| [Tabla `propietarios`](docs/evidencias/db-propietarios.jpeg) | El responsable quedó guardado en MySQL. |
-| [Tabla `mascotas`](docs/evidencias/db-mascotas.jpeg) | La mascota guarda `propietario_id`: la llave foránea está en el lado "muchos". |
-| [Tabla `veterinarios`](docs/evidencias/db-veterinarios.jpeg) | El veterinario quedó guardado en MySQL. |
-| [POST veterinarios](docs/evidencias/post-veterinarios-201.jpeg) | Creación de un veterinario en Postman con respuesta 201, hecha antes de activar JWT. |
-| [GET propietarios](docs/evidencias/get-propietarios-200.jpeg) · [GET mascotas](docs/evidencias/get-mascotas-200.jpeg) · [GET veterinarios](docs/evidencias/get-veterinario-200.jpeg) · [GET citas](docs/evidencias/get-citas-200.jpeg) | Consultas en Postman con respuesta 200 y JSON plano, hechas antes de activar JWT. |
+| Tablas `propietarios`, `mascotas` y `veterinarios` (págs. 5 y 6) | Los datos quedaron guardados en MySQL. `mascotas.propietario_id` muestra la llave foránea en el lado "muchos". |
+| `GET` de propietarios, mascotas, veterinarios y citas en Postman (págs. 6 a 8) | Respuestas 200 con JSON plano, tomadas antes de activar JWT. |
+| `POST` de veterinario en Postman (pág. 11) | Creación con respuesta 201, tomada antes de activar JWT. |
 
 ## 13. Errores frecuentes
 
@@ -321,7 +258,7 @@ Las imágenes se muestran directamente en el README. Las rutas son relativas a l
 
 ## 14. Uso de inteligencia artificial
 
-Me apoyé principalmente en la IA para resolver consultas y dudas sobre cómo debía ser el funcionamiento correcto de todas las clases y paquetes que iba a implementar. También la usé para revisar las relaciones entre las entidades, para diagnosticar la conexión con la base de datos y las variables de entorno, y para la sección de pruebas, con el fin de comprobar que todo saliera correcto, tanto en Postman como en Swagger. En todo momento me apoyé además en el material de las clases que hemos venido trabajando. También recibí ejemplos de código de varias clases (DTO, servicios, controllers y seguridad JWT), que revisé, adapté a mi proyecto y comprobé con las 15 pruebas manuales y con las tablas de MySQL.
+Me apoyé principalmente en la IA para resolver consultas y dudas sobre cómo debía ser el funcionamiento correcto de todas las clases y paquetes que iba a implementar. También la usé para revisar las relaciones entre las entidades, para diagnosticar la conexión con la base de datos y las variables de entorno, y para la sección de pruebas, con el fin de comprobar que todo saliera correcto, tanto en Postman como en Swagger. En todo momento me apoyé además en el material de las clases que hemos venido trabajando.
 
 ## 15. Mejoras futuras
 
